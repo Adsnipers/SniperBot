@@ -1,12 +1,9 @@
 name: Deploy Commands
-on:
-  push:
-    branches:
-      - main
-      - dev
+
+on: [push]
+
 jobs:
-  deploy:
-    name: Deploy Commands
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,8 +11,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '12.x'
-      - run: npm i
-      - run: node deploy-command.js
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run deploy-command
