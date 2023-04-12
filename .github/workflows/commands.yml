@@ -1,0 +1,14 @@
+name: Deploy Commands
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy Commands
+    runs-on: ubuntu-latest
+    steps:
+      - run: node deploy-commands.js
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
