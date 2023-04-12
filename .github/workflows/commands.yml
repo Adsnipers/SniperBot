@@ -8,8 +8,12 @@ jobs:
     name: Deploy Commands
     runs-on: ubuntu-latest
     steps:
-      - run: npm i
-      - run: node deploy-commands.js
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12.x'
+      - run: node deploy-command.js
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
