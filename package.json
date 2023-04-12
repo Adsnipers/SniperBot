@@ -14,6 +14,7 @@
     "config.js": "^0.1.0",
     "config.json": "^0.0.4",
     "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
     "forever-monitor": "^3.0.3",
     "mongodb": "^5.2.0",
     "node-fetch": "^3.2.6"
