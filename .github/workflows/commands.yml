@@ -14,3 +14,6 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run deploy-command
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
