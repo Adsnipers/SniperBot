@@ -55,6 +55,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+/* 
 const { MongoClient } = require("mongodb");
 // Replace the uri string with your connection string.
 const uri = process.env.MONGODB_URI;
@@ -73,3 +74,4 @@ async function run() {
   }
 }
 run().catch(console.dir);
+*/
