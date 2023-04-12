@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '12.x'
       - run: npm i
-      - run: node deploy-command.js
+      - run: npm run deploy-command
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
