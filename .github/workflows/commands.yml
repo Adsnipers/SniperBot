@@ -13,7 +13,7 @@ jobs:
           node-version: '12.x'
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm run deploy-command
+      - run: node deploy-command.js
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
