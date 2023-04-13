@@ -16,8 +16,13 @@ module.exports = {
 			  const query = { uid: `${interaction.user.id}` };
 			  const user = await admins.findOne(query);
 				
-				// Respond to the command with user information
-			  await interaction.reply(`Hi ${interaction.user.username}! \rYour UID is: ${interaction.user.id} \rYou joined this server on ${interaction.member.joinedAt} \rand your role in my backend system is ${user.role}`);
+			// Respond to the command with user information
+			// If user exists in the database, print database information, if not, print base discord information.
+			if (user != null) {
+			  await interaction.reply(`Hi ${interaction.user.username}! \rYour UID is: ${interaction.user.id} \rYou joined this server on ${interaction.member.joinedAt} \rand your role in my backend system is ***${user.role}***`);
+			} else {
+				await interaction.reply(`Hi ${interaction.user.username}! \rYour UID is: ${interaction.user.id} \rand you joined this server on ${interaction.member.joinedAt}`);
+			};
 			} finally {
 			  // Ensure the MongoDB client is closed
 			  await dbClient.close();
