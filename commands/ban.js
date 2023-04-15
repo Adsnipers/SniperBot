@@ -35,7 +35,7 @@ module.exports = {
 					await interaction.reply(`Banned ${banuser}`);
 					console.log(`${user.nickname} banned ${banuser} from ${guild.name}`)
 				} else {
-					await interaction.reply(`Bro, Just right click them....`);
+					await interaction.reply(`Bro, Just right click them.`);
 				};
 			} finally {
 				// Ensure the MongoDB client is closed
