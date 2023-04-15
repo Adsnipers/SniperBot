@@ -2,11 +2,11 @@
 const fs = require('node:fs');
 require('dotenv').config()
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Intents, Collection, Events, GatewayIntentBits } = require('discord.js');
 const token = process.env.BOT_TOKEN
 
 // Create a new Discord client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
 client.commands = new Collection();
 
@@ -53,4 +53,8 @@ client.on(Events.InteractionCreate, async interaction => {
 			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
 	}
+});
+
+client.on('messageCreate', (message) => {
+	console.log(message)
 });
