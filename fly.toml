@@ -1,4 +1,4 @@
-# fly.toml file generated for sniperbot-prod on 2023-04-12T20:21:24+10:00
+# fly.toml file generated for sniperbot-dev-openai on 2023-04-16T04:27:38Z
 
 app = "sniperbot-prod"
 kill_signal = "SIGINT"

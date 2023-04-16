@@ -2,11 +2,14 @@
 const fs = require('node:fs');
 require('dotenv').config()
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Intents, Collection, Events, GatewayIntentBits } = require('discord.js');
 const token = process.env.BOT_TOKEN
 
 // Create a new Discord client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers] });
 
 client.commands = new Collection();
 
@@ -26,7 +29,7 @@ for (const file of commandFiles) {
 
 // When the client is ready, run this code (only once)
 client.once(Events.ClientReady, c => {
-	console.log(`Ready! Connected as: ${c.user.tag}`);
+	console.log(`Ready as: ${c.user.tag}`);
 });
 
 // Log in to Discord with your client's token
@@ -55,23 +58,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-/* 
-const { MongoClient } = require("mongodb");
-// Replace the uri string with your connection string.
-const uri = process.env.MONGODB_URI;
-const dbClient = new MongoClient(uri);
-async function run() {
-  try {
-    const database = dbClient.db('sample_mflix');
-    const movies = database.collection('movies');
-    // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
-    const movie = await movies.findOne(query);
-    console.log(movie);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await dbClient.close();
-  }
-}
-run().catch(console.dir);
-*/
+client.on('messageCreate', (message) => {
+	const messageHandler = require('./messageHandler.js');
+	messageHandler.check(message);
+});

@@ -3,8 +3,9 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Replies with Pong!'),
+		.setDescription('Check the current roundtrip latency between SniperBot and the Discord API'),
 	async execute(interaction) {
-		await interaction.reply('Pong!');
+		const sent = await interaction.reply({ content: 'Pinging...', fetchReply: true });
+		interaction.editReply(`Roundtrip latency: ${sent.createdTimestamp - interaction.createdTimestamp}ms`);
 	},
 };
