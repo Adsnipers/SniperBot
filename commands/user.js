@@ -4,7 +4,6 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('user')
 		.setDescription('Provides information about the user.'),
-
 	async execute(interaction) {
 		const { MongoClient } = require("mongodb");
 		const uri = process.env.MONGODB_URI;
