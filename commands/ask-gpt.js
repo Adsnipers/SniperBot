@@ -23,10 +23,15 @@ module.exports = {
 				model: "text-davinci-003",
 				max_tokens: 7,
 				temperature: 0.80,
+				stop: '(?!\\?$)|($|\\n)$',
 				prompt: `Respond to: ${interaction.options.getString('message')}`,
 			});
+			if (completion) {
 				await interaction.reply(`**>** ${interaction.options.getString('message')}\r${completion.data.choices[0].text}`);
-			console.log(completion.data)
+				console.log(completion.data)
+			} else {
+				await interaction.reply(`Hmm. something went wrong. please try again later.\rIf this persists, please let my developer know!`);
+			}
 		}
 
 		runCompletion();
