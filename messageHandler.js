@@ -8,9 +8,10 @@ async function check(message) {
   const openai = new OpenAIApi(configuration);
 
   async function runCompletion() {
+		const prompt = require('./autodelete_prompt.json');
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `Reply true or false if the following chat message contains any racism, toxicity or bullying: ${message.content}: `,
+      prompt: `${prompt[0]} ${message.content}: `,
     });
     if (completion.data.choices[0].text.includes("True")) {
       console.log(message.author.username);
@@ -30,8 +31,10 @@ async function check(message) {
       const query = { id: `${message.guild.id}` };
       const server = await servers.findOne(query);
       if (server != null && server.gptChecking == true) {
+				// If server has gptChecking enabled, run AI checking
         runCompletion();
       } else {
+				// If server does not have gptChecking enabled, return.
         return;
       }
     } finally {
