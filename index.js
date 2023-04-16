@@ -29,7 +29,7 @@ for (const file of commandFiles) {
 
 // When the client is ready, run this code (only once)
 client.once(Events.ClientReady, c => {
-	console.log(`Ready! Connected as: ${c.user.tag}`);
+	console.log(`Ready as: ${c.user.tag}`);
 });
 
 // Log in to Discord with your client's token
