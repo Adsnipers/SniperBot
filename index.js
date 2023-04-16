@@ -6,7 +6,10 @@ const { Client, Intents, Collection, Events, GatewayIntentBits } = require('disc
 const token = process.env.BOT_TOKEN
 
 // Create a new Discord client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers] });
 
 client.commands = new Collection();
 
@@ -56,5 +59,6 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.on('messageCreate', (message) => {
-	console.log(message)
+	const messageHandler = require('./messageHandler.js');
+	messageHandler.check(message);
 });
