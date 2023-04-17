@@ -31,8 +31,12 @@ async function check(message) {
       const query = { id: `${message.guild.id}` };
       const server = await servers.findOne(query);
       if (server != null && server.gptChecking == true) {
-				// If server has gptChecking enabled, run AI checking
-        runCompletion();
+				if (!message.member.roles.cache.has(server.immunityRole)) {
+					// If server has gptChecking enabled, run AI checking
+        	runCompletion();
+				} else {
+					return;
+				}
       } else {
 				// If server does not have gptChecking enabled, return.
         return;
@@ -43,6 +47,8 @@ async function check(message) {
   }
   run().catch(console.dir);
 }
+
+
 
 module.exports = {
   check,
