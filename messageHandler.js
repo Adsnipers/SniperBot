@@ -1,4 +1,4 @@
-async function check(message) {
+async function check(message, Client) {
   if (message.author.bot) return;
   const { Configuration, OpenAIApi } = require("openai");
   const configuration = new Configuration({
@@ -14,9 +14,8 @@ async function check(message) {
       prompt: `${prompt[0]} ${message.content}: `,
     });
     if (completion.data.choices[0].text.includes("True")) {
-      console.log(message.author.username);
+			console.log(`DELETED: ${message.author.username}: ${message.content}`)
       message.delete(1000);
-      console.log(message.content);
     }
   }
 
@@ -30,12 +29,19 @@ async function check(message) {
       const servers = database.collection("servers");
       const query = { id: `${message.guild.id}` };
       const server = await servers.findOne(query);
-      if (server != null && server.gptChecking == true) {
-				if (!message.member.roles.cache.has(server.immunityRole)) {
-					// If server has gptChecking enabled, run AI checking
+			// If serverLocked = true, delete any message.
+      if (server != null) {
+				if (server.gptChecking == true) {
+					if (!message.member.roles.cache.has(server.immunityRole)) {
+					// If server has gptChecking enabled and user is not immune, run AI checking
         	runCompletion();
 				} else {
+					// If user is immune, return
 					return;
+				}
+				}
+				if (server.lockdown == true) {
+					message.delete(1000);
 				}
       } else {
 				// If server does not have gptChecking enabled, return.
