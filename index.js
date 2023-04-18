@@ -80,5 +80,5 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 client.on("messageCreate", (message) => {
   const messageHandler = require("./messageHandler.js");
-  messageHandler.check(message);
+  messageHandler.check(message, Client);
 });
